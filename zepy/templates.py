@@ -63,9 +63,12 @@ class ProjectTemplate:
                 return True
         return False
 
-
     def __repr__(self) -> str:
-        ...
+        return (
+            f"ProjectTemplate("
+            f"{self.source},"
+            f"{self.tags})"
+        )
 
     def __str__(self) -> str:
-        ...
+        return f"ProjectTemplate({self.source})"
