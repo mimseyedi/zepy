@@ -44,7 +44,7 @@ class Project:
         template: Path,
         *,
         description: Optional[str] = None,
-        python_version: Optional[str] = None,
+        python_interpreter: Optional[str] = None,
         license_: Optional[str] = None,
         user: Optional[str] = None,
     ) -> Project:
