@@ -27,7 +27,13 @@ class ProjectTemplate:
 
     @staticmethod
     def _is_hidden_item(item: Path) -> bool:
-        ...
+        if item.name.startswith('.'):
+            return True
+        for parent in item.parents:
+            if parent.name.startswith('.'):
+                return True
+        return False
+
 
     def __repr__(self) -> str:
         ...
