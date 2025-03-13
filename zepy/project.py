@@ -5,7 +5,13 @@ from typing import (
     Dict,
     Optional,
 )
+from ruamel.yaml import (
+    YAML,
+    YAMLError,
+)
 from pathlib import Path
+
+from .errors import ProjectSettingsError
 
 
 class ProjectSettings:
@@ -21,7 +27,16 @@ class ProjectSettings:
         return settings.get(name, None)
 
     def load(self) -> Dict:
-        ...
+        try:
+            settings = YAML().load(
+                self._settings_file.read_text()
+            )
+        except YAMLError:
+            raise ProjectSettingsError(
+                "The settings file is corrupt and unreadable"
+            )
+        else:
+            return settings
 
     def __repr__(self) -> str:
         ...
