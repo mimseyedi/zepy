@@ -20,7 +20,34 @@ class ProjectTemplate:
         return self._source.name
 
     def build(self, dest: Path) -> None:
-        ...
+        dest.mkdir(parents=True, exist_ok=True)
+
+        for item in self.source.rglob('*'):
+            if self._is_hidden_item(item):
+                continue
+
+            relative = self.render(
+                item.relative_to(
+                    self.source
+                ).__str__()
+            )
+            dest_item = Path(
+                dest, relative,
+            )
+
+            if item.is_dir():
+                dest_item.mkdir(
+                    parents=True,
+                    exist_ok=True,
+                )
+            elif item.is_file():
+                rendered_data = self.render(
+                    item.read_text('utf-8')
+                )
+                dest_item.write_text(
+                    rendered_data,
+                    'utf-8',
+                )
 
     def render(self, string: str) -> str:
         return Template(
