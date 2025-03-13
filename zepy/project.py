@@ -11,6 +11,10 @@ class ProjectSettings:
     def __init__(self, settings_file: Path) -> None:
         self._settings_file = settings_file
 
+    @property
+    def settings_file(self) -> Path:
+        return self._settings_file
+
     def get(self, name: str) -> Any:
         ...
 
