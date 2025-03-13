@@ -23,7 +23,9 @@ class ProjectTemplate:
         ...
 
     def render(self, string: str) -> str:
-        ...
+        return Template(
+            template=string,
+        ).safe_substitute(self.tags)
 
     @staticmethod
     def _is_hidden_item(item: Path) -> bool:
