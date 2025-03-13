@@ -17,7 +17,8 @@ class ProjectSettings:
         return self._settings_file
 
     def get(self, name: str) -> Any:
-        ...
+        settings = self.load()
+        return settings.get(name, None)
 
     def load(self) -> Dict:
         ...
